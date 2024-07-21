@@ -28,7 +28,7 @@ app.post('/login', userController.loginUser);
 
 // Book routes
 app.post('/books', bookController.addBook);
-app.put('/books', bookController.updateBook);
+app.put('/books/:id', bookController.updateBook);
 app.delete('/books/:id', bookController.deleteBook);
 app.get('/books', bookController.getBookCatalog); // Get book catalog
 app.get('/late-returns', bookController.trackLateReturns);
