@@ -28,17 +28,17 @@ app.post('/login', userController.loginUser);
 
 // Book routes
 app.post('/books', bookController.addBook);
-app.put('/books/:id', authenticateToken, isLibrarian, bookController.updateBook);
-app.delete('/books/:id', authenticateToken, isLibrarian, bookController.deleteBook);
-app.get('/books', authenticateToken, bookController.getBookCatalog); // Get book catalog
-app.get('/late-returns', authenticateToken, isLibrarian, bookController.trackLateReturns);
-app.post('/notify-late-returns', authenticateToken, isLibrarian, bookController.notifyLateReturns);
-app.get('/reports/borrowing-stats', authenticateToken, isLibrarian, bookController.generateBorrowingStats);
-app.get('/reports/book-popularity', authenticateToken, isLibrarian, bookController.generateBookPopularityReport);
+app.put('/books/:id', bookController.updateBook);
+app.delete('/books/:id', bookController.deleteBook);
+app.get('/books', bookController.getBookCatalog); // Get book catalog
+app.get('/late-returns', bookController.trackLateReturns);
+app.post('/notify-late-returns', bookController.notifyLateReturns);
+app.get('/reports/borrowing-stats', bookController.generateBorrowingStats);
+app.get('/reports/book-popularity', bookController.generateBookPopularityReport);
 
 // Borrow routes
-app.post('/borrow', authenticateToken, borrowController.borrowBook);
-app.post('/return', authenticateToken, borrowController.returnBook);
+app.post('/borrow',  borrowController.borrowBook);
+app.post('/return',  borrowController.returnBook);
 app.get('/my-borrowed-books', authenticateToken, borrowController.getUserBorrowedBooks);
 app.get('/my-fines', authenticateToken, borrowController.getUserFines);
 app.post('/pay-fine', authenticateToken, borrowController.payFine);
