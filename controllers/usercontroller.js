@@ -24,7 +24,9 @@ const loginUser = async (req, res) => {
   if (!validPassword) return res.status(400).send('Invalid Credentials');
 
   const token = jwt.sign({ id: users.docs[0].id, role: user.role }, JWT_SECRET);
-  res.header('Authorization', token).send('Logged in');
+  const decodedToken = jwt.decode(token);
+  console.log(decodedToken);
+  res.header('Authorization', token).send('Logged in',token);
 };
 
 module.exports = { registerUser, loginUser };
