@@ -2,7 +2,7 @@
 const db = require('../config');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'selasela';
+const JWT_SECRET = 'arethisisajoke';
 
 const registerUser = async (req, res) => {
   const { username, password, role } = req.body;

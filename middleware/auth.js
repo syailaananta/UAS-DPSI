@@ -1,6 +1,6 @@
 // middlewares/auth.js
 const jwt = require('jsonwebtoken');
-const JWT_SECRET = 'selasela';
+const JWT_SECRET = 'arethisisajoke';
 
 const authenticateToken = async (req, res, next) => {
   // 1. Get the token from the request headers
