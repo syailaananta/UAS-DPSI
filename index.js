@@ -27,7 +27,7 @@ app.post('/register', userController.registerUser);
 app.post('/login', userController.loginUser);
 
 // Book routes
-app.post('/books', authenticateToken, isLibrarian, bookController.addBook);
+app.post('/books', isLibrarian, bookController.addBook);
 app.put('/books/:id', authenticateToken, isLibrarian, bookController.updateBook);
 app.delete('/books/:id', authenticateToken, isLibrarian, bookController.deleteBook);
 app.get('/books', authenticateToken, bookController.getBookCatalog); // Get book catalog
