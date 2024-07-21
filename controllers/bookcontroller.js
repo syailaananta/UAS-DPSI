@@ -3,9 +3,26 @@ const db = require('../config');
 
 const addBook = async (req, res) => {
   const { id, title, author, isbn, publishedDate } = req.body;
-  await db.collection('books').add({ id,title, author, isbn, publishedDate });
-  res.send('Book added');
+
+  if (!id || !title || !author || !isbn || !publishedDate) {
+    return res.status(400).send('Missing required fields');
+  }
+
+  try {
+    // Create or update the document at books/{id}
+    await db.collection('books').doc(id).set({
+      title,
+      author,
+      isbn,
+      publishedDate
+    });
+
+    res.status(200).send('Book added successfully');
+  } catch (error) {
+    res.status(500).send('Error adding book: ' + error.message);
+  }
 };
+
 
 const updateBook = async (req, res) => {
   const { id } = req.params;
