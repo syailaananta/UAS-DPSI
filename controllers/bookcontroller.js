@@ -2,8 +2,8 @@
 const db = require('../config');
 
 const addBook = async (req, res) => {
-  const { title, author, isbn, publishedDate } = req.body;
-  await db.collection('books').add({ title, author, isbn, publishedDate });
+  const { id, title, author, isbn, publishedDate } = req.body;
+  await db.collection('books').add({ id,title, author, isbn, publishedDate });
   res.send('Book added');
 };
 
