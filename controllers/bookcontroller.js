@@ -11,6 +11,7 @@ const addBook = async (req, res) => {
   try {
     // Create or update the document at books/{id}
     await db.collection('books').doc(id).set({
+      id,
       title,
       author,
       isbn,
