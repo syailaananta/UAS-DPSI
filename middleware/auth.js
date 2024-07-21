@@ -9,6 +9,8 @@ const authenticateToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.user = decoded;
+    console.log(token)
+    console.log(decoded)
     next();
   } catch (error) {
     res.status(400).send('Invalid token.');
