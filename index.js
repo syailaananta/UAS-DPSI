@@ -39,9 +39,9 @@ app.get('/reports/book-popularity', bookController.generateBookPopularityReport)
 // Borrow routes
 app.post('/borrow',  borrowController.borrowBook);
 app.post('/return',  borrowController.returnBook);
-app.get('/my-borrowed-books', authenticateToken, borrowController.getUserBorrowedBooks);
-app.get('/my-fines', authenticateToken, borrowController.getUserFines);
-app.post('/pay-fine', authenticateToken, borrowController.payFine);
+app.get('/my-borrowed-books',  borrowController.getUserBorrowedBooks);
+app.get('/my-fines',  borrowController.getUserFines);
+app.post('/pay-fine',  borrowController.payFine);
 
 
 const PORT = process.env.PORT || 3002;
