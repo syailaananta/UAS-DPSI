@@ -25,7 +25,7 @@ const loginUser = async (req, res) => {
     const validPassword = await bcrypt.compare(password, user.password);
     if (!validPassword) return res.status(400).send('Invalid Credentials');
 
-    const token = jwt.sign({ userId: userDoc.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    const token = jwt.sign({ id: userDoc.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
     res.header('Authorization', `Bearer ${token}`).send('Logged in');
   } catch (error) {
     res.status(500).send('Error logging in: ' + error.message);
