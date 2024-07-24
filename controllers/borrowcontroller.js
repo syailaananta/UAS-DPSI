@@ -2,6 +2,7 @@ const db = require('../config');
 
 const borrowBook = async (req, res) => {
   try {
+    console.log('User in request:', req.user);
     const { bookId, returnDate } = req.body;
     const userId = req.user.id;
 
@@ -25,12 +26,14 @@ const borrowBook = async (req, res) => {
 
     res.send('Book borrowed successfully');
   } catch (error) {
+    console.error('Error borrowing book:', error.message);
     res.status(500).send('Error borrowing book: ' + error.message);
   }
 };
 
 const returnBook = async (req, res) => {
   try {
+    console.log('User in request:', req.user);
     const { bookId } = req.body;
     const userId = req.user.id;
 
@@ -66,12 +69,14 @@ const returnBook = async (req, res) => {
       res.send('Book returned successfully.');
     }
   } catch (error) {
+    console.error('Error returning book:', error.message);
     res.status(500).send('Error returning book: ' + error.message);
   }
 };
 
 const getUserBorrowedBooks = async (req, res) => {
   try {
+    console.log('User in request:', req.user);
     const userId = req.user.id;
     const borrowedBooks = await db.collection('borrowed_books')
       .where('userId', '==', userId)
@@ -82,12 +87,14 @@ const getUserBorrowedBooks = async (req, res) => {
 
     res.send(borrowedBookList);
   } catch (error) {
+    console.error('Error retrieving borrowed books:', error.message);
     res.status(500).send('Error retrieving borrowed books: ' + error.message);
   }
 };
 
 const getUserFines = async (req, res) => {
   try {
+    console.log('User in request:', req.user);
     const userId = req.user.id;
     const fines = await db.collection('fines')
       .where('userId', '==', userId)
@@ -99,17 +106,20 @@ const getUserFines = async (req, res) => {
 
     res.send(fineList);
   } catch (error) {
+    console.error('Error retrieving fines:', error.message);
     res.status(500).send('Error retrieving fines: ' + error.message);
   }
 };
 
 const payFine = async (req, res) => {
   try {
+    console.log('User in request:', req.user);
     const { fineId } = req.body;
 
     await db.collection('fines').doc(fineId).update({ paid: true });
     res.send('Fine paid successfully.');
   } catch (error) {
+    console.error('Error paying fine:', error.message);
     res.status(500).send('Error paying fine: ' + error.message);
   }
 };
