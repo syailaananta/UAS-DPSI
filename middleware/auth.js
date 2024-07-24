@@ -10,7 +10,7 @@ const authenticateToken = async (req, res, next) => {
   }
 
   try {
-    const decoded = jwt.verify(token, 'your_jwt_secret');
+    const decoded = jwt.verify(token, 'arethisisajoke');
     const userId = decoded.userId; // Ensure payload contains userId
     console.log('Decoded Token:', decoded);
 
