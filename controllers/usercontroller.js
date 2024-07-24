@@ -14,17 +14,22 @@ const registerUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { username, password } = req.body;
+  try {
+    const { username, password } = req.body;
 
-  const users = await db.collection('users').where('username', '==', username).get();
-  if (users.empty) return res.status(400).send('Invalid Credentials');
+    const users = await db.collection('users').where('username', '==', username).get();
+    if (users.empty) return res.status(400).send('Invalid Credentials');
 
-  const user = users.docs[0].data();
-  const validPassword = await bcrypt.compare(password, user.password);
-  if (!validPassword) return res.status(400).send('Invalid Credentials');
+    const userDoc = users.docs[0];
+    const user = userDoc.data();
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) return res.status(400).send('Invalid Credentials');
 
-  const token = jwt.sign({ id: users.docs[0].id, role: user.role }, JWT_SECRET);
-  res.header('Authorization', token).send('Logged in');
+    const token = jwt.sign({ userId: userDoc.id, role: user.role }, JWT_SECRET, { expiresIn: '1h' });
+    res.header('Authorization', `Bearer ${token}`).send('Logged in');
+  } catch (error) {
+    res.status(500).send('Error logging in: ' + error.message);
+  }
 };
 
 module.exports = { registerUser, loginUser };
