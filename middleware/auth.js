@@ -2,7 +2,7 @@
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'arethisisajoke';
 
-const authenticate = async (req, res, next) => {
+const authenticateToken = async (req, res, next) => {
   const token = req.header('Authorization').replace('Bearer ', '');
   if (!token) return res.status(401).send('Access denied. No token provided.');
 
